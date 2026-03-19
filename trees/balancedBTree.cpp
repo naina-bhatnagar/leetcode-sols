@@ -12,18 +12,17 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-int depth(TreeNode *root){
+int checker(TreeNode *root){
     if(root == nullptr) return 0;
-    int ls = depth(root->left);
-    int rs = depth(root->right);
+    int ls = checker(root->left);
+    if(ls==-1) return -1;
+    int rs = checker(root->right);
+    if(rs==-1) return -1;
+    if (abs(ls - rs) > 1) return -1;
     return 1 + max(ls,rs);
 }
 bool isBalanced(TreeNode* root) {
-    if(root==nullptr) return true;
-    int leftd = depth(root->left);
-    int rightd = depth(root->right);
-    if(abs(leftd - rightd) > 1) return false;
-    return isBalanced(root->left) && isBalanced(root->right);
+    return checker(root) != -1;
 }
 int main(){
     return 0;
