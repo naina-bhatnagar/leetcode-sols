@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 using namespace std;
 
 class Node {
@@ -19,16 +20,21 @@ public:
     }
 };
 
-void npreorder(vector<int>&ans,Node*root){
-    if(root == nullptr) return;
-    ans.push_back(root->val);
-    for(Node* child : root->children){
-        npreorder(ans,child);
-    }
-}
+
 vector<int> preorder(Node* root) {
-    vector<int> ans;
-    npreorder(ans,root);
+    vector <int> ans;
+    if(root== nullptr) return ans;
+    stack <Node*> s;
+    s.push(root);
+    while(!s.empty()){
+        root = s.top();
+        s.pop();
+        ans.push_back(root->val);
+        for(int i = root->children.size()-1 ; i>=0; i--){
+            if(root->children[i] == nullptr) continue;
+            s.push(root->children[i]);
+        }
+    }
     return ans;
 }
 
