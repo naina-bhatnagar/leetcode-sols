@@ -15,28 +15,15 @@ struct TreeNode{
         left = right = nullptr;
     }
 };
-
-bool path(vector<TreeNode*>&ans,TreeNode *root,TreeNode *p){
-    if(root == nullptr) return false;
-    ans.push_back(root);
-    if(root==p) return true;
-    if(path(ans,root->left,p) || path(ans,root->right,p)) return true;
-    ans.pop_back();
-    return false;
-}
 TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    TreeNode *ans = root;
-    vector<TreeNode*> l;
-    path(l,root,p);
-    vector<TreeNode*> r;
-    path(r,root,q);
-    int n = min(l.size(),r.size());
-    for(int i=0; i<n; i++){
-        if(l[i] == r[i]) ans = l[i];
-        else break;
+        if(root==nullptr || root == p || root == q) return root;
+
+        TreeNode *left = lowestCommonAncestor(root->left, p, q);
+        TreeNode *right = lowestCommonAncestor(root->right, p, q);
+        
+        if(left != nullptr && right != nullptr) return root;
+        return (left == nullptr ? right : left);
     }
-    return ans;
-}
 
 int main(){
     TreeNode* root = new TreeNode(1);
