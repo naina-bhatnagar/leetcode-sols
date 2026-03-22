@@ -6,23 +6,23 @@
 using namespace std;
 
 
-struct TreeNode{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
+struct Node{
+    int data;
+    Node *left;
+    Node *right;
 
-    TreeNode(int v){
-        val = v;
+    Node(int v){
+        data = v;
         left = right = nullptr;
     }
 };
 
 int main(){
-    TreeNode* root = new TreeNode(1);
-    root->left = new TreeNode(2);
-    root->right = new TreeNode(3);
-    root->right->left = new TreeNode(4);
-    root->right->right = new TreeNode(5);
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->right->left = new Node(4);
+    root->right->right = new Node(5);
     //     1
     //   /   \
     // 2       3
